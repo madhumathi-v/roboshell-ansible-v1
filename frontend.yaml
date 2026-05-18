@@ -29,22 +29,11 @@
         path: /usr/share/nginx/html
         state: directory
 
-    - name: Create App  content folder
-      ansible.builtin.file:
-        path: /tmp/frontend
-        state: directory
-
-
     - name: Download frontend content
       ansible.builtin.unarchive:
         src: https://raw.githubusercontent.com/raghudevopsb89/roboshop-microservices/main/artifacts/frontend.zip
-        dest: /tmp/frontend
+        dest: /usr/share/nginx/html
         remote_src: yes
-
-    - name: Build Static content
-      ansible.builtin.shell: npm install && npm run build ; rm -rf /usr/share/nginx/html/* ; cp -r out/* /usr/share/nginx/html/
-      args:
-        chdir: /tmp/frontend
 
     - name: Restart Nginx
       ansible.builtin.service:
