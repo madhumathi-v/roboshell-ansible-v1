@@ -33,7 +33,7 @@
     - name: Download frontend content
       ansible.builtin.unarchive:
         url: https://raw.githubusercontent.com/raghudevopsb89/roboshop-microservices/main/artifacts/frontend.zip
-        dest: /tmp/frontend.zip
+        dest: /tmp/frontend
         remote_src: yes
 
     - name: Build Static content
