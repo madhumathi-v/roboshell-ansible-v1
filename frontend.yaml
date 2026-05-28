@@ -13,7 +13,7 @@
         dest: /etc/nginx/nginx.conf
 
     - name: Setup Nodejs Repository
-      ansible.builtin.shell: curl -sL https://rpm.nodesource.com/setup_16.x | bash -
+      ansible.builtin.shell: curl -sL https://rpm.nodesource.com/setup_22.x | bash -
 
     - name: install nodejs
       ansible.builtin.dnf:
