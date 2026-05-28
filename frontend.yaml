@@ -6,3 +6,21 @@
       ansible.builtin.dnf:
         name: nginx
         state: latest
+    - name: Copy files
+      ansible.builtin.copy:
+        src: nginx.conf
+        dest: /etc/nginx/nginx.conf
+    - name: install nodejs
+      ansible.builtin.dnf:
+        name: nodejs
+        state: latest
+    - name: fetch the code using git and copy to /tmp/frontend.zip
+      ansible.builtin.git:
+        repo: 'https://raw.githubusercontent.com/raghudevopsb89/roboshop-microservices/main/artifacts/frontend.zip'
+        dest: /tmp/frontend.zip
+    - name: Unzip the frontend.zip file
+      ansible.builtin.unarchive:
+        src: /tmp/frontend.zip
+        dest: /usr/share/nginx/html/
+        remote_src: yes
+    - name: Make Directory and move the frontend folder to /tmp/frontend
