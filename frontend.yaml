@@ -24,6 +24,7 @@
       ansible.builtin.dnf:
         name: nodejs
         state: latest
+        disable_gpg_check: true
 
     - name: Revome directory
       ansible.builtin.file:
