@@ -1,0 +1,66 @@
+- name: Catalogue Module Setup
+  hosts: all
+  become: true
+  tasks:
+    - name: Create Application User
+      ansible.builtin.user:
+        name: appuser
+        system: true
+        shell: /bin/false
+        create_home: false
+    
+    - name: Copy SystemD Service File
+      ansible.builtin.copy:
+        src: catalogue.service
+        dest: /etc/systemd/system/catalogue.service
+
+    - name: Install golang and git
+      ansible.builtin.dnf:
+        name: 
+          - golang
+          - git
+        state: latest
+
+    - name: Install Mysql client
+      ansible.builtin.dnf:
+        name: mysql8.4
+        state: latest
+
+    - name: Remove Directory
+      ansible.builtin.file:
+        path: /app
+        state: absent
+    - name: Create Directory
+      ansible.builtin.file:
+        path: /app
+        state: directory
+    - name: Unzip the catalogue.zip file
+      ansible.builtin.unarchive:
+        src: 'https://raw.githubusercontent.com/raghudevopsb89/roboshop-microservices/main/artifacts/catalogue.zip'
+        dest: /app
+        remote_src: yes
+    - name: Run shell Commands
+      ansible.builtin.shell: |
+          mysql -h mysql-dev.rdevopsb89.online -u root -pRoboShop@1 < db/schema.sql
+          mysql -h mysql-dev.rdevopsb89.online -u root -pRoboShop@1 < db/app-user.sql
+          mysql -h mysql-dev.rdevopsb89.online -u root -pRoboShop@1 catalogue < db/master-data.sql
+      args:
+        chdir: /app
+    - name: Compile the Application Code
+      ansible.builtin.shell: go mod init catalogue && go get && go build -o /app/catalogue
+      args:
+        chdir: /app
+    - name: Apply Permissions for the application folder
+      ansible.builtin.file:
+        path: /app
+        owner: appuser
+        group: appuser
+        state: directory
+        recurse: yes
+        mode: 'o-wxr'
+    - name: Start Catalogue Service
+      ansible.builtin.systemd_service:
+        name: catalogue
+        state: restarted
+        enabled: true
+        daemon_reload: true
