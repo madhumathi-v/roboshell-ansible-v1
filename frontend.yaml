@@ -15,6 +15,11 @@
     - name: Setup Nodejs Repository
       ansible.builtin.shell: curl -sL https://rpm.nodesource.com/setup_16.x | bash -
 
+    - name: Import Nodesource GPG key
+      ansible.builtin.rpm_key:
+        state: present
+        key: https://rpm.nodesource.com/pub/el/NODESOURCE-GPG-SIGNING-KEY-EL
+
     - name: install nodejs
       ansible.builtin.dnf:
         name: nodejs
