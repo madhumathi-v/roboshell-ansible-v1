@@ -37,7 +37,12 @@
         dest: /tmp/frontend
         remote_src: yes
     - name: Install npm dependencies
-      ansible.builtin.shell: npm install ; npm run build ; rm -rf /usr/share/nginx/html/* ; cp -r /tmp/frontend/dist/* /usr/share/nginx/html/
+      ansible.builtin.shell: |
+        npm install
+        npm run build
+        npm run export
+        rm -rf /usr/share/nginx/html/*
+        cp -r /tmp/frontend/out/* /usr/share/nginx/html/
       args:
         chdir: /tmp/frontend
 
