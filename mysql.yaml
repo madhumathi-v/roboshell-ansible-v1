@@ -17,7 +17,7 @@
     - name: Set Root Password and Grant Access
       ansible.builtin.shell: |
         mysql_secure_installation --set-root-pass RoboShop@1
-      ignore_errors: true
+      ignore_errors: false
 
     - name: Create Remote Root User
       ansible.builtin.shell: |
