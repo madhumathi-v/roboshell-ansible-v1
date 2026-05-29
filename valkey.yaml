@@ -9,13 +9,13 @@
 
     - name: replace valkey bind address
       ansible.builtin.replace:
-         regexp: 'bind: 127.0.0.1'
-         replace: 'bind: "0.0.0.0"'
+        regexp: 'bind: 127.0.0.1'
+        replace: 'bind: "0.0.0.0"'
 
     - name: Replace Protected Mode
       ansible.builtin.replace:
-         regexp: 'protected_mode: true'
-         replace: 'protected_mode: false'
+        regexp: 'protected_mode: true'
+        replace: 'protected_mode: false'
 
     - name: Restart Valkey and enable it to start on boot
       systemd:
