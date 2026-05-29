@@ -1,27 +1,22 @@
 - name: MYSQL Setup
   hosts: all
   become: true
-
   tasks:
     - name: Install MySQL
       ansible.builtin.dnf:
         name: mysql8.4-server
         state: latest
 
-    - name: Start MySQL Service
+    - name: Enable and start MySQL service
       ansible.builtin.systemd_service:
         name: mysqld
         state: started
         enabled: true
 
-    - name: Set Root Password and Grant Access
+    - name: Configure MySQL Root User
       ansible.builtin.shell: |
-        mysql_secure_installation --set-root-pass RoboShop@1
-      ignore_errors: false
-
-    - name: Create Remote Root User
-      ansible.builtin.shell: |
-        mysql -uroot -pRoboShop@1 -e "
+        mysql -e "
+        ALTER USER 'root'@'%' IDENTIFIED BY 'RoboShop@1';
         CREATE USER IF NOT EXISTS 'root'@'%' IDENTIFIED BY 'RoboShop@1';
         GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
         FLUSH PRIVILEGES;
