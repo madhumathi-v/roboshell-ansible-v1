@@ -11,7 +11,7 @@
 
     - name: Copy SystemD Service File
       ansible.builtin.copy:
-        src: ratings.service
+        src: ./ratings.service
         dest: /etc/systemd/system/ratings.service
 
     - name: Install python3 , pyhton3-pip and mysql8.4
@@ -48,10 +48,9 @@
       args:
         chdir: /app
 
-    - name: Deploy Application 
+    - name: Deploy Application
       ansible.builtin.shell: |
         pip3 install -r requirements.txt
-        cryptography
       args:
         chdir: /app
 
