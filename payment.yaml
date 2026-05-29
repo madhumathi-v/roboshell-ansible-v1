@@ -11,7 +11,7 @@
 
     - name: Copy SystemD Service File
       ansible.builtin.copy:
-        src: payment.service
+        src: payments.service
         dest: /etc/systemd/system/payment.service
     
     - name: Install Python3 and pip3
@@ -23,7 +23,7 @@
 
     - name: Remove Directory
       ansible.builtin.file:
-        path: /path/to/directory
+        path: /app
         state: absent
 
     - name: Create Directory
