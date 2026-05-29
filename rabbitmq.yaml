@@ -4,8 +4,9 @@
   tasks:
     - name: Copy RabbitMQ SystemD Service File
       ansible.builtin.copy:
-        src: rabbitmq.service
-        dest: /etc/systemd/system/rabbitmq.service
+        src: rabbitmq.repo
+        dest: /etc/yum.repos.d/rabbitmq.repo
+        
     - name: Install RabbitMQ and Erlang
       ansible.builtin.dnf:
         name: 
