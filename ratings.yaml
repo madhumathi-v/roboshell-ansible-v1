@@ -52,7 +52,8 @@
       ansible.builtin.shell: |
         pip3 install -r requirements.txt
         cryptography
-      chdir: /app
+      args:
+        chdir: /app
 
     - name: restart ratings service ,enable and daemon-reload
       ansible.builtin.systemd:
