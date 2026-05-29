@@ -1,6 +1,8 @@
+---
 - name: Setup Order Service
   hosts: all
-  become: yes
+  become: true
+
   tasks:
     - name: Create application user
       ansible.builtin.user:
@@ -14,33 +16,51 @@
         src: orders.service
         dest: /etc/systemd/system/orders.service
 
-
-    - name: Install java-21-openjdk, java-21-openjdk-devel and maven 
+    - name: Install Java and Maven
       ansible.builtin.dnf:
-        name: 
+        name:
           - java-21-openjdk
           - java-21-openjdk-devel
           - maven
         state: latest
 
-    - name: Remove Directory
+    - name: Remove Application Directory
       ansible.builtin.file:
         path: /app
         state: absent
 
-    - name: Create Directory
+    - name: Create Application Directory
       ansible.builtin.file:
         path: /app
         state: directory
+
+    - name: Download and Extract Orders Application
+      ansible.builtin.unarchive:
+        src: https://raw.githubusercontent.com/raghudevopsb89/roboshop-microservices/main/artifacts/orders.zip
+        dest: /app
+        remote_src: yes
+
+    - name: Build Orders Application
+      ansible.builtin.shell: mvn clean package -DskipTests
+      args:
+        chdir: /app
+
+    - name: Copy Orders Jar
+      ansible.builtin.shell: |
+        cp target/*.jar /app/orders.jar
+      args:
+        chdir: /app
+
+    - name: Set Ownership
+      ansible.builtin.file:
+        path: /app
         owner: appuser
         group: appuser
-        mode: 'o-wxr'
+        recurse: true
 
-    - name: restart orders service ,enable and daemon-reload
+    - name: Restart Orders Service
       ansible.builtin.systemd:
         name: orders
         state: restarted
         enabled: true
         daemon_reload: true
-
-    
