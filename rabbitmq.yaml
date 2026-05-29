@@ -6,7 +6,7 @@
       ansible.builtin.copy:
         src: rabbitmq.repo
         dest: /etc/yum.repos.d/rabbitmq.repo
-        
+
     - name: Install RabbitMQ and Erlang
       ansible.builtin.dnf:
         name: 
@@ -16,7 +16,7 @@
 
     - name: restart RabbitMQ service
       ansible.builtin.systemd:
-        name: rabbitmq
+        name: rabbitmq-server
         state: restarted
         enabled: true
             
