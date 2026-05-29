@@ -11,7 +11,7 @@ Restart=on-failure
 RestartSec=10
 SyslogIdentifier=payment
 
-Environment=AMQP_HOST=rabbitmq-dev.rdevopsb89.online
+Environment=AMQP_HOST=10.0.0.16
 Environment=AMQP_USER=roboshop
 Environment=AMQP_PASS=RoboShop@1
 Environment=CART_URL=http://cart-dev.rdevopsb89.online:8003

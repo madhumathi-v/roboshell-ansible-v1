@@ -3,7 +3,7 @@
   become: yes
   tasks:
     - name: Install Valkey
-      apt:
+      ansible.builtin.dnf:
         name: valkey
         state: present
 
