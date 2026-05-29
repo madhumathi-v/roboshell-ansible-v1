@@ -15,8 +15,7 @@
 
     - name: Configure MySQL Root User
       ansible.builtin.shell: |
-        mysql -u root -e "
-        ALTER USER 'root'@'%' IDENTIFIED BY 'RoboShop@1';
+        mysql -u root -pRoboShop@1 -e "
         CREATE USER IF NOT EXISTS 'root'@'%' IDENTIFIED BY 'RoboShop@1';
         GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
         FLUSH PRIVILEGES;
