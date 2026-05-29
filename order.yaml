@@ -36,9 +36,9 @@
         group: appuser
         mode: 'o-wxr'
 
-    - name: restart order service ,enable and daemon-reload
+    - name: restart orders service ,enable and daemon-reload
       ansible.builtin.systemd:
-        name: order
+        name: orders
         state: restarted
         enabled: true
         daemon_reload: true

@@ -58,10 +58,10 @@
       args:
         chdir: /app
 
-    - name: Copy the jar file to /app
-      ansible.builtin.copy:
-        src: target/shipping.jar
-        dest: /app/shipping.jar
+    - name: Copy Jar file
+      ansible.builtin.shell: cp target/shipping.jar /app/shipping.jar
+      args:
+        chdir: /app
 
     - name: restart the shipping service, daemon-reload and enable the service
       ansible.builtin.systemd:
