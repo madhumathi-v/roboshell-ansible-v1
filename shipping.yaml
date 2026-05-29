@@ -43,8 +43,8 @@
 
     - name: Run shell commands related to mysql
       ansible.builtin.shell: |
-          mysql -h mysql-dev.rdevopsb89.online -u root -pRoboShop@1 < db/schema.sql
-          mysql -h mysql-dev.rdevopsb89.online -u root -pRoboShop@1 < db/app-user.sql
+          mysql -h 10.0.0.5 -u root -pRoboShop@1 < db/schema.sql
+          mysql -h 10.0.0.5 -u root -pRoboShop@1 < db/app-user.sql
       args:
         chdir: /app
 
