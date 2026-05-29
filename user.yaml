@@ -34,7 +34,7 @@
         state: directory
         owner: appuser
         group: appuser
-        recursive: true
+        recurse: true
         mode: 'o-wrx'
         
     - name: Unzip the user.zip file
