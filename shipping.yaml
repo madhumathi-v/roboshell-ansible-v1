@@ -21,6 +21,11 @@
           - maven
         state: latest
 
+    - name: Install MySQL Client
+      ansible.builtin.dnf:
+        name: mysql8.4
+        state: present
+
 
     - name: Remove Directory
       ansible.builtin.file:

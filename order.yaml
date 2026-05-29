@@ -11,8 +11,8 @@
 
     - name: Copy SystemD Service File
       ansible.builtin.copy:
-        src: order.service
-        dest: /etc/systemd/system/order.service
+        src: orders.service
+        dest: /etc/systemd/system/orders.service
 
 
     - name: Install java-21-openjdk, java-21-openjdk-devel and maven 
