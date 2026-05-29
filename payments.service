@@ -14,8 +14,8 @@ SyslogIdentifier=payment
 Environment=AMQP_HOST=10.0.0.16
 Environment=AMQP_USER=roboshop
 Environment=AMQP_PASS=RoboShop@1
-Environment=CART_URL=http://cart-dev.rdevopsb89.online:8003
-Environment=USER_URL=http://user-dev.rdevopsb89.online:8001
+Environment=CART_URL=http://10.0.0.7:8003
+Environment=USER_URL=http://10.0.0.8:8001
 Environment=PORT=8005
 
 [Install]
